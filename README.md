@@ -53,7 +53,7 @@ Real-World AI Applications
 
 # 📚 Course Modules
 
-### 01 · Python & Computational Thinking
+### 01 · AI Fundamentals
 
 Learn the programming foundations required to develop AI applications.
 
