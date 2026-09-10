@@ -1,0 +1,103 @@
+import heapq
+import time
+import os
+
+
+inicio = time.time()
+# ==========================================
+# FASE 1: BÚSQUEDA (Resolución del TSP)
+# ==========================================
+
+# Grafo de distancias aproximadas en línea recta (vuelos en km)
+distancias = {
+    'CDMX': {'GDL': 460, 'MTY': 700, 'CUN': 1300, 'TIJ': 2300},
+    'GDL': {'CDMX': 460, 'MTY': 640, 'CUN': 1700, 'TIJ': 1900},
+    'MTY': {'CDMX': 700, 'GDL': 640, 'CUN': 1400, 'TIJ': 1800},
+    'CUN': {'CDMX': 1300, 'GDL': 1700, 'MTY': 1400, 'TIJ': 3200},
+    'TIJ': {'CDMX': 2300, 'GDL': 1900, 'MTY': 1800, 'CUN': 3200}
+}
+
+def busqueda_costo_uniforme_tsp(inicio):
+    # Frontera: (costo_acumulado, ciudad_actual, ciudades_pendientes, ruta)
+    ciudades_pendientes = frozenset(['GDL', 'MTY', 'CUN', 'TIJ'])
+    frontera = [(0, inicio, ciudades_pendientes, [inicio])]
+    
+    # Alcanzados: diccionario para guardar el menor costo hacia un estado específico
+    # Estado = (ciudad_actual, ciudades_pendientes)
+    alcanzados = {(inicio, ciudades_pendientes): 0}
+    
+    while frontera:
+        costo, actual, pendientes, ruta = heapq.heappop(frontera)
+        
+        # Prueba de objetivo (Tardía, para garantizar optimalidad)
+        if len(pendientes) == 0 and actual == inicio and len(ruta) > 1:
+            return ruta, costo
+            
+        # Determinar los destinos posibles
+        if len(pendientes) == 0:
+            # Si no hay pendientes, el único destino válido es regresar al inicio
+            destinos = [inicio]
+        else:
+            # Si hay pendientes, podemos ir a cualquiera de ellas
+            destinos = pendientes
+            
+        for destino in destinos:
+            nuevo_costo = costo + distancias[actual][destino]
+            nuevas_pendientes = frozenset(c for c in pendientes if c != destino)
+            nuevo_estado = (destino, nuevas_pendientes)
+            
+            if nuevo_estado not in alcanzados or nuevo_costo < alcanzados[nuevo_estado]:
+                alcanzados[nuevo_estado] = nuevo_costo
+                nueva_ruta = ruta + [destino]
+                heapq.heappush(frontera, (nuevo_costo, destino, nuevas_pendientes, nueva_ruta))
+                
+    return None, float('inf')
+
+# ==========================================
+# FASE 2: EJECUCIÓN (Visualización Gráfica)
+# ==========================================
+
+def renderizar_vuelo(ruta, costo_total):
+    """Muestra una animación en consola del recorrido del agente viajero."""
+    distancia_recorrida = 0
+    
+    for i in range(len(ruta) - 1):
+        origen = ruta[i]
+        destino = ruta[i+1]
+        tramo_km = distancias[origen][destino]
+        distancia_recorrida += tramo_km
+        
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("✈️  SIMULADOR DEL AGENTE VIAJERO EN MÉXICO ✈️\n")
+        print(f"🌍 Itinerario Óptimo: {' ➔ '.join(ruta)}")
+        print("-" * 50)
+        print(f"🛫 Despegando de: {origen}")
+        print(f"🛬 Aterrizando en: {destino}")
+        print(f"📏 Distancia del vuelo: {tramo_km} km")
+        print("-" * 50)
+        print(f"📊 Progreso de la gira: {distancia_recorrida} km / {costo_total} km")
+        
+        # Animación simple de un avión volando
+        for esp in range(15):
+            print("\r" + " " * esp + "✈️  ☁️   ", end="")
+            time.sleep(0.15)
+        print("\n")
+        time.sleep(0.5)
+        
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("🎉 ¡GIRA COMPLETADA CON ÉXITO! 🎉")
+    print(f"Ruta final: {' ➔ '.join(ruta)}")
+    print(f"Kilometraje mínimo garantizado: {costo_total} km")
+
+# ==========================================
+# BLOQUE PRINCIPAL
+# ==========================================
+if __name__ == "__main__":
+    print("Calculando la ruta óptima exacta (Resolviendo TSP)...")
+    ruta_optima, costo_minimo = busqueda_costo_uniforme_tsp('CDMX')
+    time.sleep(1)
+    renderizar_vuelo(ruta_optima, costo_minimo)
+
+final = time.time()    
+
+print("Tiempo total: ", final-inicio)
