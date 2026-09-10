@@ -1,0 +1,117 @@
+import time
+import os
+from collections import deque
+
+# ==========================================
+# FASE 1: BÚSQUEDA (Resolución del problema)
+# ==========================================
+
+def generar_sucesores(estado):
+    """Genera las acciones y estados resultantes válidos."""
+    r, c, sucias = estado
+    sucesores = []
+    
+    # Movimientos espaciales (límites de la cuadrícula 3x3: índices 0, 1, 2)
+    if r > 0: sucesores.append(('Arriba', (r - 1, c, sucias)))
+    if r < 2: sucesores.append(('Abajo', (r + 1, c, sucias)))
+    if c > 0: sucesores.append(('Izquierda', (r, c - 1, sucias)))
+    if c < 2: sucesores.append(('Derecha', (r, c + 1, sucias)))
+    
+    # Acción de aspirar
+    if (r, c) in sucias:
+        # Creamos un nuevo conjunto (frozenset) sin la celda actual
+        nuevas_sucias = frozenset(celda for celda in sucias if celda != (r, c))
+        sucesores.append(('Aspirar', (r, c, nuevas_sucias)))
+        
+    return sucesores
+
+def busqueda_bfs(estado_inicial):
+    """Encuentra la ruta óptima usando Búsqueda en Amplitud (BFS)."""
+    # Prueba de objetivo temprana al inicio
+    if len(estado_inicial[2]) == 0:
+        return []
+        
+    frontera = deque([(estado_inicial, [])])
+    alcanzados = {estado_inicial}
+    
+    while frontera:
+        estado_actual, ruta = frontera.popleft()
+        
+        for accion, estado_hijo in generar_sucesores(estado_actual):
+            # Prueba de objetivo temprana: ¿Quedan cero celdas sucias?
+            if len(estado_hijo[2]) == 0:
+                return ruta + [accion]
+                
+            if estado_hijo not in alcanzados:
+                alcanzados.add(estado_hijo)
+                frontera.append((estado_hijo, ruta + [accion]))
+                
+    return None
+
+# ==========================================
+# FASE 2: EJECUCIÓN (Visualización Gráfica)
+# ==========================================
+
+def imprimir_cuadricula(estado, paso, accion):
+    """Renderiza el estado actual en la consola."""
+    # Limpiar la consola (funciona en Windows y Linux/Mac)
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
+    r_agente, c_agente, sucias = estado
+    
+    print(f"=== PASO {paso} ===")
+    print(f"Acción: {accion}\n")
+    
+    print("-" * 19)
+    for i in range(3):
+        fila = "|"
+        for j in range(3):
+            if i == r_agente and j == c_agente:
+                fila += " 🤖 |"  # Aspiradora
+            elif (i, j) in sucias:
+                fila += " 🦠 |"  # Basura/Suciedad
+            else:
+                fila += " ✨ |"  # Limpio
+        print(fila)
+        print("-" * 19)
+    print("\nCalculando siguiente movimiento...")
+    time.sleep(1.2)  # Pausa para crear la animación
+
+def ejecutar_simulacion(estado_inicial, ruta):
+    """Toma la ruta encontrada y la ejecuta paso a paso."""
+    estado_actual = estado_inicial
+    imprimir_cuadricula(estado_actual, 0, "INICIO")
+    
+    for paso, accion in enumerate(ruta, 1):
+        r, c, sucias = estado_actual
+        
+        # Actualizamos el estado basándonos en la acción tomada
+        if accion == 'Arriba': r -= 1
+        elif accion == 'Abajo': r += 1
+        elif accion == 'Izquierda': c -= 1
+        elif accion == 'Derecha': c += 1
+        elif accion == 'Aspirar':
+            sucias = frozenset(celda for celda in sucias if celda != (r, c))
+            
+        estado_actual = (r, c, sucias)
+        imprimir_cuadricula(estado_actual, paso, accion)
+        
+    print("¡OBJETIVO ALCANZADO! Todas las celdas están limpias. ✨")
+
+# ==========================================
+# BLOQUE PRINCIPAL
+# ==========================================
+if __name__ == "__main__":
+    # Estado: (Fila_Agente, Col_Agente, Conjunto_de_Celdas_Sucias)
+    # frozenset se usa para que el estado sea inmutable y pueda guardarse en el diccionario 'alcanzados'
+    celdas_sucias_iniciales = frozenset([(0, 0), (0, 2), (2, 1)])
+    estado_raiz = (1, 1, celdas_sucias_iniciales) # Empezamos en el centro (1, 1)
+    
+    print("Buscando ruta óptima con BFS... (Esto tomará una fracción de segundo)")
+    ruta_solucion = busqueda_bfs(estado_raiz)
+    
+    if ruta_solucion:
+        time.sleep(1)
+        ejecutar_simulacion(estado_raiz, ruta_solucion)
+    else:
+        print("No se encontró solución.")
