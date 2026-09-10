@@ -55,114 +55,29 @@ Real-World AI Applications
 
 ### 01 · AI Fundamentals
 
-Learn the programming foundations required to develop AI applications.
+---
 
-* Variables and data types
-* Operators
-* Conditional statements
-* Loops
-* Functions
-* Lists, tuples and dictionaries
-* Basic numerical computation
-
-📂 `01_python_fundamentals/`
+### 02 · Expert Systems
 
 ---
 
-### 02 · Data for Artificial Intelligence
-
-Understand why **data is the foundation of every AI system**.
-
-* Data exploration
-* Data quality
-* Missing values
-* Data preprocessing
-* Feature engineering
-* Data visualization
-* Training and testing datasets
-
-📂 `02_data_fundamentals/`
-
----
-
-### 03 · Search & Optimization
-
-Explore how intelligent systems search for solutions.
-
-* State-space representation
-* Breadth-First Search
-* Depth-First Search
-* Heuristic search
-* Best-First Search
-* A* algorithm
-* Optimization concepts
-* Adversarial search
-
-📂 `03_search_and_optimization/`
+### 03 · Search and Optimization Algorithms
 
 ---
 
 ### 04 · Machine Learning
 
-Discover how machines learn patterns from data.
+---
 
-* Supervised learning
-* Regression
-* Classification
-* Decision Trees
-* Random Forest
-* Support Vector Machines
-* K-Nearest Neighbors
-* Model evaluation
-
-📂 `04_machine_learning/`
+### 05 · Artificial Neural Networks
 
 ---
 
-### 05 · Neural Networks
-
-Introduction to computational models inspired by biological neural systems.
-
-* Artificial neurons
-* Perceptrons
-* Activation functions
-* Forward propagation
-* Loss functions
-* Backpropagation
-* Training neural networks
-
-📂 `05_neural_networks/`
+### 06 · Natural Language Processing
 
 ---
 
-### 06 · Intelligent Systems
-
-Explore classical approaches to representing knowledge and reasoning.
-
-* Expert systems
-* Propositional logic
-* First-order logic
-* Knowledge bases
-* Forward chaining
-* Backward chaining
-* Intelligent agents
-
-📂 `06_intelligent_systems/`
-
----
-
-### 07 · AI Applications
-
-Connect fundamental concepts with real-world engineering problems.
-
-* Computer vision
-* Natural language processing
-* Predictive systems
-* AI in engineering
-* AI in science
-* AI-assisted decision making
-
-📂 `07_ai_applications/`
+### 07 · Deep Learning
 
 ---
 
@@ -175,7 +90,7 @@ Each module may contain:
 ```text
 📖 Theory
    ↓
-💻 Python Notebook
+💻 Jupyter Notebook
    ↓
 🧪 Practical Exercise
    ↓
@@ -204,150 +119,6 @@ Depending on the activity, additional frameworks may be introduced.
 
 ---
 
-# 📂 Repository Structure
-
-```text
-AI-Fundamentals/
-│
-├── 📁 01_python_fundamentals/
-│   ├── notebooks/
-│   ├── exercises/
-│   └── README.md
-│
-├── 📁 02_data_fundamentals/
-│   ├── notebooks/
-│   ├── datasets/
-│   └── exercises/
-│
-├── 📁 03_search_and_optimization/
-│   ├── notebooks/
-│   ├── algorithms/
-│   └── exercises/
-│
-├── 📁 04_machine_learning/
-│   ├── notebooks/
-│   ├── datasets/
-│   └── projects/
-│
-├── 📁 05_neural_networks/
-│   ├── notebooks/
-│   └── exercises/
-│
-├── 📁 06_intelligent_systems/
-│   ├── notebooks/
-│   └── exercises/
-│
-├── 📁 07_ai_applications/
-│   └── projects/
-│
-├── 📁 resources/
-│
-├── 📄 requirements.txt
-└── 📄 README.md
-```
-
----
-
-# 🚀 Getting Started
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/YOUR-USERNAME/AI-Fundamentals.git
-```
-
-### 2. Enter the repository
-
-```bash
-cd AI-Fundamentals
-```
-
-### 3. Create a virtual environment
-
-```bash
-python -m venv .venv
-```
-
-### 4. Activate it
-
-**Windows**
-
-```bash
-.venv\Scripts\activate
-```
-
-**macOS / Linux**
-
-```bash
-source .venv/bin/activate
-```
-
-### 5. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 6. Launch Jupyter
-
-```bash
-jupyter notebook
-```
-
----
-
-# 🧩 Learning Challenges
-
-Throughout the course, you will encounter challenges designed to develop your ability to **think like an AI engineer**.
-
-### 🔹 Challenge 01
-
-Create your first Python-based intelligent decision system.
-
-### 🔹 Challenge 02
-
-Clean and analyze a real-world dataset.
-
-### 🔹 Challenge 03
-
-Implement a search algorithm.
-
-### 🔹 Challenge 04
-
-Train your first machine learning classifier.
-
-### 🔹 Challenge 05
-
-Build a simple neural network.
-
-### 🔹 Challenge 06
-
-Develop a rule-based expert system.
-
-### 🔹 Final Challenge 🚀
-
-> **Design and implement an AI solution for a real-world problem.**
-
----
-
-# 📊 Model Evaluation
-
-AI models are not evaluated only by whether they produce an answer.
-
-You will learn how to analyze:
-
-* Accuracy
-* Precision
-* Recall
-* F1-score
-* Confusion matrices
-* ROC curves
-* AUC
-* Training and validation performance
-
-The goal is to understand **why a model works**, not simply obtain a high score.
-
----
 
 # 🌎 AI Beyond the Classroom
 
@@ -387,10 +158,10 @@ A strong AI practitioner should be able to:
 
 # 👨‍🏫 Course Instructor
 
-**M. en C. Enoc Tapia Méndez**
+**M.Sc. in AI Enoc Tapia Méndez**
 
-**PhD Student – Researcher of Artificial Intelligence**
-Universidad Autónoma de Querétaro
+**PhD – Researcher of Artificial Intelligence**
+
 
 Research interests include:
 
@@ -398,8 +169,9 @@ Research interests include:
 * Machine Learning
 * Computer Vision
 * Intelligent Systems
-* AI for Engineering
+* AI for Engineering, Medicine and Agriculture
 * AI for Scientific Research
+* Superintelligence Systems
 
 ---
 
@@ -432,6 +204,6 @@ Students are encouraged to:
 
 <p align="center">
 
-⭐ If this repository helps you learn AI, consider giving it a star!
+
 
 </p>
